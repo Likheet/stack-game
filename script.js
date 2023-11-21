@@ -253,7 +253,7 @@ function resetGame(event) {
 });
 
 let lastInputTime = 0;
-const inputCooldown = 10; // Cooldown in milliseconds
+const inputCooldown = 250; // Cooldown in milliseconds
 
 function eventHandler(e) {
   const currentTime = new Date().getTime();
