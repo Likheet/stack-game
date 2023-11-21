@@ -73,10 +73,9 @@ window.addEventListener('resize', function() {
   aspect = window.innerWidth / window.innerHeight;
   if (window.matchMedia("(max-width: 600px)").matches) {
     // The viewport is 600px or less
-    width = 5; // Adjust these values as needed
+    width = 5;
     height = width / aspect;
   } else {
-    // The viewport is more than 600px
     width = 10;
     height = width / aspect;
   }
@@ -86,16 +85,6 @@ window.addEventListener('resize', function() {
   camera.bottom = height / -1.3;
   camera.updateProjectionMatrix();
 }, false);
-
-  /*
-  // If you want to use perspective camera instead, uncomment these lines
-  camera = new THREE.PerspectiveCamera(
-    45, // field of view
-    aspect, // aspect ratio
-    1, // near plane
-    100 // far plane
-  );
-  */
 
   camera.position.set(4, 4, 4);
   camera.lookAt(0, 0, 0);
@@ -263,11 +252,21 @@ function resetGame(event) {
 }
 });
 
-function eventHandler() {
-  
+let lastInputTime = 0;
+const inputCooldown = 10; // Cooldown in milliseconds
+
+function eventHandler(e) {
+  const currentTime = new Date().getTime();
+  if (currentTime - lastInputTime < inputCooldown) return;
+  lastInputTime = currentTime;
+
+  e.preventDefault();
+  e.stopPropagation();
   if (autopilot) startGame();
   else splitBlockAndAddNextOneIfOverlaps();
 }
+
+document.addEventListener('pointerdown', eventHandler, false);
 
 function splitBlockAndAddNextOneIfOverlaps() {
   if (gameEnded) return;
