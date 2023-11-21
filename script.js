@@ -255,18 +255,10 @@ function resetGame(event) {
 let lastInputTime = 0;
 const inputCooldown = 500; // Cooldown in milliseconds
 
-function eventHandler(e) {
-  const currentTime = new Date().getTime();
-  if (currentTime - lastInputTime < inputCooldown) return;
-  lastInputTime = currentTime;
-
-  e.preventDefault();
-  e.stopPropagation();
+function eventHandler() {
   if (autopilot) startGame();
   else splitBlockAndAddNextOneIfOverlaps();
 }
-
-document.addEventListener('pointerdown', eventHandler, false);
 
 function splitBlockAndAddNextOneIfOverlaps() {
   if (gameEnded) return;

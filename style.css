@@ -61,13 +61,20 @@ a:visited {
 #score {
   font-size: 5em;
   position: absolute;
-  top: 0;
-  left: 50%;
+  top: 2px;
+  left: 90%;
+  margin-left: 5px;
   transform: translateX(-50%);
-  display: flex;
-  align-items: center;
   color: rgb(170, 170, 170);
-  font-size: 3em;
+  font-weight: bold;
+}
+#front-score {
+  font-size: 5em;
+  position: absolute;
+  top: 0px;
+  left: 81%;
+  transform: translateX(-50%);
+  color: rgb(170, 170, 170);
   font-weight: bold;
 }
 @media (max-width: 600px) {
