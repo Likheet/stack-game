@@ -20,7 +20,7 @@ init();
 
 // Determines how precise the game is on autopilot
 function setRobotPrecision() {
-  robotPrecision = Math.random() * 1 - 0.5;
+  robotPrecision = 0;
 }
 
 function init() {
@@ -43,7 +43,7 @@ function init() {
   const height = width / aspect;
 
   camera = new THREE.OrthographicCamera(
-    width / -2, // left
+    width / -1, // left
     width / 2, // right
     height / 2, // top
     height / -2, // bottom
@@ -53,7 +53,7 @@ function init() {
 
   // If you want to use perspective camera instead, uncomment these lines
   camera = new THREE.PerspectiveCamera(
-    45, // field of view
+    50, // field of view
     aspect, // aspect ratio
     1, // near plane
     100 // far plane
@@ -71,10 +71,10 @@ function init() {
   addLayer(-10, 0, originalBoxSize, originalBoxSize, "x");
 
   // Set up lights
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
   scene.add(ambientLight);
 
-  const dirLight = new THREE.DirectionalLight(0xffffff, 0.6);
+  const dirLight = new THREE.DirectionalLight(0xffffff, 0.5);
   dirLight.position.set(10, 20, 0);
   scene.add(dirLight);
 
