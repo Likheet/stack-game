@@ -1,4 +1,3 @@
-
 window.focus(); // Capture keys right away (by default focus is on editor)
 
 let camera, scene, renderer; // ThreeJS globals
@@ -15,6 +14,9 @@ let robotPrecision; // Determines how precise the game is on autopilot
 const scoreElement = document.getElementById("score");
 const instructionsElement = document.getElementById("instructions");
 const resultsElement = document.getElementById("results");
+const clickSound = new Audio('interface.mp3');
+const errorSound = new Audio('error.mp3');
+
 
 init();
 
@@ -190,6 +192,13 @@ function cutBox(topLayer, overlap, size, delta) {
   topLayer.cannonjs.shapes = [];
   topLayer.cannonjs.addShape(shape);
 }
+window.addEventListener('touchstart', playClick);
+function playClick() {
+  clickSound.play();
+}
+function playError() {
+    errorSound.play();
+}
 
 window.addEventListener("mousedown", eventHandler);
 window.addEventListener("touchstart", eventHandler);
@@ -261,7 +270,9 @@ function splitBlockAndAddNextOneIfOverlaps() {
     addLayer(nextX, nextZ, newWidth, newDepth, nextDirection);
   } else {
     missedTheSpot();
+    playError();
   }
+  clickSound.play();
 }
 
 function missedTheSpot() {
