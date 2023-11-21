@@ -20,7 +20,7 @@ init();
 
 // Determines how precise the game is on autopilot
 function setRobotPrecision() {
-  robotPrecision = 0;
+  robotPrecision = Math.random() * 1 - 0.5;
 }
 
 function init() {
@@ -44,20 +44,22 @@ function init() {
 
   camera = new THREE.OrthographicCamera(
     width / -1, // left
-    width / 2, // right
-    height / 2, // top
-    height / -2, // bottom
+    width / 1, // right
+    height / 1, // top
+    height / -1, // bottom
     0, // near plane
     100 // far plane
   );
 
+  /*
   // If you want to use perspective camera instead, uncomment these lines
   camera = new THREE.PerspectiveCamera(
-    50, // field of view
+    45, // field of view
     aspect, // aspect ratio
     1, // near plane
     100 // far plane
   );
+  */
 
   camera.position.set(4, 4, 4);
   camera.lookAt(0, 0, 0);
@@ -71,10 +73,10 @@ function init() {
   addLayer(-10, 0, originalBoxSize, originalBoxSize, "x");
 
   // Set up lights
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
   scene.add(ambientLight);
 
-  const dirLight = new THREE.DirectionalLight(0xffffff, 0.5);
+  const dirLight = new THREE.DirectionalLight(0xffffff, 0.6);
   dirLight.position.set(10, 20, 0);
   scene.add(dirLight);
 
@@ -164,12 +166,6 @@ function generateBox(x, y, z, width, depth, falls) {
     depth
   };
 }
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('start-button').addEventListener('click', function(event) {
-      event.preventDefault();
-      startGame();
-  });
-});
 
 function cutBox(topLayer, overlap, size, delta) {
   const direction = topLayer.direction;
@@ -208,6 +204,12 @@ window.addEventListener("keydown", function (event) {
     startGame();
     return;
   }
+  document.getElementById('start-button').addEventListener('click', resetGame);
+  function resetGame() {
+  event.preventDefault();
+    startGame();
+    return;
+}
 });
 
 function eventHandler() {
@@ -317,7 +319,7 @@ function animation(time) {
 
     // 4 is the initial camera height
     if (camera.position.y < boxHeight * (stack.length - 2) + 4) {
-      camera.position.y += speed * timePassed;
+      camera.position.y += (speed/10) * timePassed;
     }
 
     updatePhysics(timePassed);
@@ -327,7 +329,7 @@ function animation(time) {
 }
 
 function updatePhysics(timePassed) {
-  world.step(timePassed / 1000); // Step the physics world
+  world.step(timePassed / 2000); // Step the physics world
 
   // Copy coordinates from Cannon.js to Three.js
   overhangs.forEach((element) => {
