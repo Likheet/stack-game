@@ -10,7 +10,7 @@ const originalBoxSize = 3; // Original width and height of a box
 let autopilot;
 let gameEnded;
 let robotPrecision; // Determines how precise the game is on autopilot
-
+const snapDistance = 0.1;
 const scoreElement = document.getElementById("score");
 const instructionsElement = document.getElementById("instructions");
 const resultsElement = document.getElementById("results");
@@ -89,6 +89,11 @@ function init() {
   document.body.appendChild(renderer.domElement);
 }
 
+function splitBlockAndAddNextOneIfOverlaps() {
+  // Align block positions to the nearest snapDistance
+  topLayer.threejs.position.x = Math.round(topLayer.threejs.position.x / snapDistance) * snapDistance;
+  topLayer.threejs.position.z = Math.round(topLayer.threejs.position.z / snapDistance) * snapDistance;
+}
 function startGame() {
   autopilot = false;
   gameEnded = false;
@@ -214,10 +219,9 @@ window.addEventListener("keydown", function (event) {
     return;
   }
   document.getElementById('start-button').addEventListener('click', resetGame);
-  function resetGame() {
+function resetGame(event) {
   event.preventDefault();
-    startGame();
-    return;
+  startGame();
 }
 });
 
