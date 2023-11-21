@@ -204,7 +204,7 @@ function playClick() {
 function playError() {
     errorSound.play();
 }
-
+document.getElementById('start-button').addEventListener('click', startGame);
 window.addEventListener("mousedown", eventHandler);
 window.addEventListener("touchstart", eventHandler);
 window.addEventListener("keydown", function (event) {
@@ -218,7 +218,6 @@ window.addEventListener("keydown", function (event) {
     startGame();
     return;
   }
-  document.getElementById('start-button').addEventListener('click', resetGame);
 function resetGame(event) {
   event.preventDefault();
   startGame();
@@ -246,6 +245,7 @@ function splitBlockAndAddNextOneIfOverlaps() {
   const overlap = size - overhangSize;
 
   if (overlap > 0) {
+    clickSound.play();
     cutBox(topLayer, overlap, size, delta);
 
     // Overhang
@@ -276,7 +276,6 @@ function splitBlockAndAddNextOneIfOverlaps() {
     missedTheSpot();
     playError();
   }
-  clickSound.play();
 }
 
 function missedTheSpot() {
