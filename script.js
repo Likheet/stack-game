@@ -16,8 +16,17 @@ const instructionsElement = document.getElementById("instructions");
 const resultsElement = document.getElementById("results");
 const clickSound = new Audio('interface.mp3');
 const errorSound = new Audio('error.mp3');
+let touchTimer;
 
+window.addEventListener('touchstart', (event) => {
+  event.preventDefault();
 
+  if(touchTimer) {
+    clearTimeout(touchTimer);
+  }
+
+  touchTimer = setTimeout(eventHandler, 300);
+});
 init();
 
 // Determines how precise the game is on autopilot
@@ -45,10 +54,10 @@ function init() {
   const height = width / aspect;
 
   camera = new THREE.OrthographicCamera(
-    width / -1, // left
-    width / 1, // right
-    height / 1, // top
-    height / -1, // bottom
+    width / -1.3, // left
+    width / 1.3, // right
+    height / 1.3, // top
+    height / -1.3, // bottom
     0, // near plane
     100 // far plane
   );
@@ -225,6 +234,7 @@ function resetGame(event) {
 });
 
 function eventHandler() {
+  
   if (autopilot) startGame();
   else splitBlockAndAddNextOneIfOverlaps();
 }
@@ -279,6 +289,7 @@ function splitBlockAndAddNextOneIfOverlaps() {
 }
 
 function missedTheSpot() {
+  playError();
   const topLayer = stack[stack.length - 1];
 
   // Turn to top layer into an overhang and let it fall down
