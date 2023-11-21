@@ -6,6 +6,10 @@ body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   cursor: pointer;
 }
+#bg {
+  background-color: #fff9f9; /* Or some other color */
+  /* Other styles... */
+}
 
 #instructions {
   display: none;
@@ -22,9 +26,8 @@ body {
   text-decoration: none;
   transition: background-color 0.3s ease;
 }
-
 #start-button:hover {
-  background-color: #777;
+  background-color: #696666;
   cursor: pointer;
 }
 
@@ -56,10 +59,20 @@ a:visited {
 }
 
 #score {
+  font-size: 5em;
   position: absolute;
-  color: white;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  color: rgb(170, 170, 170);
   font-size: 3em;
   font-weight: bold;
-  top: 30px;
-  right: 30px;
+}
+@media (max-width: 600px) {
+  #start-button {
+    padding: 5px 10px; /* Smaller padding for mobile */
+    font-size: 14px; /* Smaller font size for mobile */
+  }
 }

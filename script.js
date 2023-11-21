@@ -31,7 +31,7 @@ init();
 
 // Determines how precise the game is on autopilot
 function setRobotPrecision() {
-  robotPrecision = Math.random() * 1 - 0.5;
+  robotPrecision = 0;
 }
 
 function init() {
@@ -49,18 +49,43 @@ function init() {
   world.solver.iterations = 40;
 
   // Initialize ThreeJs
-  const aspect = window.innerWidth / window.innerHeight;
-  const width = 10;
-  const height = width / aspect;
+  let aspect = window.innerWidth / window.innerHeight;
+let width = 10;
+let height = width / aspect;
 
-  camera = new THREE.OrthographicCamera(
-    width / -1.3, // left
-    width / 1.3, // right
-    height / 1.3, // top
-    height / -1.3, // bottom
-    0, // near plane
-    100 // far plane
-  );
+if (window.matchMedia("(max-width: 600px)").matches) {
+  // The viewport is 600px or less
+  width = 5; // Adjust these values as needed
+  height = width / aspect;
+}
+
+camera = new THREE.OrthographicCamera(
+  width / -1.3, // left
+  width / 1.3, // right
+  height / 1.3, // top
+  height / -1.3, // bottom
+  0, // near plane
+  100 // far plane
+);
+
+// Add event listener for window resize
+window.addEventListener('resize', function() {
+  aspect = window.innerWidth / window.innerHeight;
+  if (window.matchMedia("(max-width: 600px)").matches) {
+    // The viewport is 600px or less
+    width = 5; // Adjust these values as needed
+    height = width / aspect;
+  } else {
+    // The viewport is more than 600px
+    width = 10;
+    height = width / aspect;
+  }
+  camera.left = width / -1.3;
+  camera.right = width / 1.3;
+  camera.top = height / 1.3;
+  camera.bottom = height / -1.3;
+  camera.updateProjectionMatrix();
+}, false);
 
   /*
   // If you want to use perspective camera instead, uncomment these lines
@@ -90,7 +115,12 @@ function init() {
   const dirLight = new THREE.DirectionalLight(0xffffff, 0.6);
   dirLight.position.set(10, 20, 0);
   scene.add(dirLight);
-
+  //Load background texture
+const loader = new THREE.TextureLoader();
+loader.load('https://images.unsplash.com/photo-1614854262318-831574f15f1f?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' , function(texture)
+            {
+             scene.background = texture;  
+            });
   // Set up renderer
   renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
