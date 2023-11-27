@@ -49,7 +49,7 @@ To run the game locally:
 2. Navigate to the project directory: `cd stack-block-game`
 3. Open `index.html` in a web browser.
 
-Alternatively, the game is accessible online at [Game Link](https://your-game-link.com).
+Alternatively, the game is accessible online  [Here](https://stack-game-pearl.vercel.app/).
 
 ## Credits
 
