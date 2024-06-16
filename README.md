@@ -46,8 +46,9 @@ Initiates a game reset when triggered by the 'R' or 'r' keypress. It prevents th
 To run the game locally:
 
 1. Clone this repository: `git clone https://github.com/your-username/stack-block-game.git`
-2. Navigate to the project directory: `cd stack-block-game`
-3. Open `index.html` in a web browser.
+2. run "npm i" to install any dependencies
+3. Navigate to the project directory: `cd stack-block-game`
+4. Open `index.html` in a web browser.
 
 Alternatively, the game is accessible online  [Here](https://stack-game-pearl.vercel.app/).
 
